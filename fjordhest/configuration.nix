@@ -95,7 +95,17 @@
   nixpkgs.overlays = with pkgs; [
     (self: super: {
       dwm = super.dwm.overrideAttrs (oldAttrs: rec {
-        configFile = writeText "config.def.h" (builtins.readFile "${fetchFromGitHub { owner="hazeycode"; repo="my-config-files"; rev="4bdbfb51ab416232af0cd74993ae8b9b7cf59576"; sha256="19n99zfc56z7q1jg57shx3cc7x770318sfv7qj06dhxf8w2sh638"; }}/dwm/config.h");
+        configFile = writeText "config.def.h" (builtins.readFile "${fetchFromGitHub { owner="hazeycode"; repo="my-config-files"; rev="333acb238fe8b18fb5ceac67d0cbf48ce5e3cdda"; sha256="1g9fc0kdnv2i1rly63ayz0n0l6fjlkfilwaj2j1i8bdndnhhcpz0"; }}/dwm/config.h");
+        postPatch = "${oldAttrs.postPatch}\n cp ${configFile} config.def.h";
+      });
+      st = super.st.overrideAttrs (oldAttrs: rec {
+        patches = [
+          (fetchpatch {
+            url = "https://st.suckless.org/patches/nordtheme/st-nordtheme-0.8.2.diff";
+            sha256 = "0ssj7gsb3snk1pqfkffwc0dshrbmvf7ffqvrdi4k2p451mnqmph1";
+          })
+        ];
+        configFile = writeText "config.def.h" (builtins.readFile "${fetchFromGitHub { owner="hazeycode"; repo="my-config-files"; rev="333acb238fe8b18fb5ceac67d0cbf48ce5e3cdda"; sha256="1g9fc0kdnv2i1rly63ayz0n0l6fjlkfilwaj2j1i8bdndnhhcpz0"; }}/st/config.h");
         postPatch = "${oldAttrs.postPatch}\n cp ${configFile} config.def.h";
       });
     })
