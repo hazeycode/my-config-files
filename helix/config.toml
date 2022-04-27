@@ -1,0 +1,5 @@
+theme = "onedark"
+
+[editor]
+line-number = "absolute"
+auto-completion = true
