@@ -95,8 +95,7 @@
   nixpkgs.overlays = with pkgs; [
     (self: super: {
       dwm = super.dwm.overrideAttrs (oldAttrs: rec {
-        # TODO: Read config file from remote host (github)
-        configFile = writeText "config.def.h" (builtins.readFile /home/chris/suckless/dwm/config.h);
+        configFile = writeText "config.def.h" (builtins.readFile "${fetchFromGitHub { owner="hazeycode"; repo="my-config-files"; rev="4bdbfb51ab416232af0cd74993ae8b9b7cf59576"; sha256="19n99zfc56z7q1jg57shx3cc7x770318sfv7qj06dhxf8w2sh638"; }}/dwm/config.h");
         postPatch = "${oldAttrs.postPatch}\n cp ${configFile} config.def.h";
       });
     })
