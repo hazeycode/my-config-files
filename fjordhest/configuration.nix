@@ -86,8 +86,10 @@
   environment.systemPackages = with pkgs; [
     wget
     xclip
+    xcompmgr
     dmenu
     st
+    direnv
     cheat
   ];
 
