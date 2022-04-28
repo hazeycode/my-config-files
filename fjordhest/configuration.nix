@@ -4,12 +4,14 @@
 
 { config, pkgs, ... }:
 
+let unstableTarball = fetchTarball https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz;
+in
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-    ];
-
+    ];  
+    
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -69,6 +71,16 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
+  nixpkgs.config.allowUnfree = true;
+  
+  nixpkgs.config = {
+    packageOverrides = pkgs: with pkgs; {
+      unstable = import unstableTarball {
+        config = config.nixpkgs.config;
+      };
+    };
+  };
+        
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.chris = {
     isNormalUser = true;
@@ -78,6 +90,8 @@
       git
       helix
       firefox
+      unstable.discord
+      unstable.zig
     ];  
   };
 
@@ -101,12 +115,6 @@
         postPatch = "${oldAttrs.postPatch}\n cp ${configFile} config.def.h";
       });
       st = super.st.overrideAttrs (oldAttrs: rec {
-        patches = [
-          (fetchpatch {
-            url = "https://st.suckless.org/patches/nordtheme/st-nordtheme-0.8.2.diff";
-            sha256 = "0ssj7gsb3snk1pqfkffwc0dshrbmvf7ffqvrdi4k2p451mnqmph1";
-          })
-        ];
         configFile = writeText "config.def.h" (builtins.readFile "${fetchFromGitHub { owner="hazeycode"; repo="my-config-files"; rev="333acb238fe8b18fb5ceac67d0cbf48ce5e3cdda"; sha256="1g9fc0kdnv2i1rly63ayz0n0l6fjlkfilwaj2j1i8bdndnhhcpz0"; }}/st/config.h");
         postPatch = "${oldAttrs.postPatch}\n cp ${configFile} config.def.h";
       });
@@ -121,7 +129,8 @@
     enableSSHSupport = true;
   };
   programs.fish.enable = true;
-
+  programs.steam.enable = true;
+  
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
