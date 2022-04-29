@@ -89,7 +89,9 @@ in
     packages = with pkgs; [
       git
       helix
+      stunnel
       firefox
+      clojure
       unstable.discord
       unstable.zig
     ];  
