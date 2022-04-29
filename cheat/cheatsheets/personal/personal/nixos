@@ -1,3 +1,6 @@
+# To search for nixpkgs
+nix search <package_name>
+
 # To install a package in the current environment:
 nix-env -i <package_name>
 
@@ -5,7 +8,7 @@ nix-env -i <package_name>
 nix-prefetch-url <url>
 
 # To edit the system configuration:
-sudo nano /etx/nixos/configuration.nix
+sudo nano /etc/nixos/configuration.nix
 
 # To rebuild the system configuration:
 sudo nixos-rebuild switch
