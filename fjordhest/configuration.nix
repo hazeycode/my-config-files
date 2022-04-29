@@ -102,8 +102,8 @@ in
   environment.systemPackages = with pkgs; [
     wget
     xclip
-    xcompmgr
     dmenu
+    xcompmgr
     kitty
     direnv
     cheat
@@ -113,7 +113,7 @@ in
   nixpkgs.overlays = with pkgs; [
     (self: super: {
       dwm = super.dwm.overrideAttrs (oldAttrs: rec {
-        configFile = writeText "config.def.h" (builtins.readFile "${fetchFromGitHub { owner="hazeycode"; repo="my-config-files"; rev="333acb238fe8b18fb5ceac67d0cbf48ce5e3cdda"; sha256="1g9fc0kdnv2i1rly63ayz0n0l6fjlkfilwaj2j1i8bdndnhhcpz0"; }}/dwm/config.h");
+        configFile = writeText "config.def.h" (builtins.readFile "${fetchFromGitHub { owner="hazeycode"; repo="my-config-files"; rev="c4605128f626d96b2dcd816ed796c294548b79db"; sha256="00ah003zbsz3dcb6fxhin1yw32yq094asjhv7zk7qbqpvqlwghlw"; }}/dwm/config.h");
         postPatch = "${oldAttrs.postPatch}\n cp ${configFile} config.def.h";
       });
     })
