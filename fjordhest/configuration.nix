@@ -104,7 +104,7 @@ in
     xclip
     xcompmgr
     dmenu
-    st
+    kitty
     direnv
     cheat
   ];
@@ -114,10 +114,6 @@ in
     (self: super: {
       dwm = super.dwm.overrideAttrs (oldAttrs: rec {
         configFile = writeText "config.def.h" (builtins.readFile "${fetchFromGitHub { owner="hazeycode"; repo="my-config-files"; rev="333acb238fe8b18fb5ceac67d0cbf48ce5e3cdda"; sha256="1g9fc0kdnv2i1rly63ayz0n0l6fjlkfilwaj2j1i8bdndnhhcpz0"; }}/dwm/config.h");
-        postPatch = "${oldAttrs.postPatch}\n cp ${configFile} config.def.h";
-      });
-      st = super.st.overrideAttrs (oldAttrs: rec {
-        configFile = writeText "config.def.h" (builtins.readFile "${fetchFromGitHub { owner="hazeycode"; repo="my-config-files"; rev="333acb238fe8b18fb5ceac67d0cbf48ce5e3cdda"; sha256="1g9fc0kdnv2i1rly63ayz0n0l6fjlkfilwaj2j1i8bdndnhhcpz0"; }}/st/config.h");
         postPatch = "${oldAttrs.postPatch}\n cp ${configFile} config.def.h";
       });
     })
