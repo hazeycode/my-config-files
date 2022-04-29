@@ -1,0 +1,12 @@
+# To install a package in the current environment:
+nix-env -i <package_name>
+
+# To get a hash for the contents of a URL:
+nix-prefetch-url <url>
+
+# To edit the system configuration:
+sudo nano /etx/nixos/configuration.nix
+
+# To rebuild the system configuration:
+sudo nixos-rebuild switch
+
