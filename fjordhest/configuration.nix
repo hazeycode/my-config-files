@@ -95,6 +95,7 @@ in
       spectacle peek
       firefox
       unstable.discord
+      screenkey
     ];  
   };
 
@@ -104,14 +105,19 @@ in
     wget
     direnv
     cheat
-    xclip dmenu xcompmgr kitty
+    xclip
+    dmenu
+    xcompmgr
+    kitty surf
   ];
 
   # Define package overlays
   nixpkgs.overlays = with pkgs; [
     (self: super: {
       dwm = super.dwm.overrideAttrs (oldAttrs: rec {
-        configFile = writeText "config.def.h" (builtins.readFile "${fetchFromGitHub { owner="hazeycode"; repo="my-config-files"; rev="c4605128f626d96b2dcd816ed796c294548b79db"; sha256="00ah003zbsz3dcb6fxhin1yw32yq094asjhv7zk7qbqpvqlwghlw"; }}/dwm/config.h");
+        configFile = writeText "config.def.h" (builtins.readFile
+          "${fetchFromGitHub { owner="hazeycode"; repo="my-config-files"; rev="b5c737bb435605941bcef98c92efa2ba5db7953c"; sha256="00ah003zbsz3dcb6fxhin1yw32yq094asjhv7zk7qbqpvqlwghlw"; }}/dwm/config.h"
+        );
         postPatch = "${oldAttrs.postPatch}\n cp ${configFile} config.def.h";
       });
     })
