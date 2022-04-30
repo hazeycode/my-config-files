@@ -13,3 +13,11 @@ sudo nano /etc/nixos/configuration.nix
 # To rebuild the system configuration:
 sudo nixos-rebuild switch
 
+# To delete all old (non-current) generations:
+nix-env --delete-generations old
+
+# To run the garbage collector:
+nix-store --gc --print-dead
+
+# To delete all old generations of all profiles:
+nix-collect-garbage -d
