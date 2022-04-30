@@ -12,7 +12,7 @@ in
       ./hardware-configuration.nix
     ];  
     
-  # Use the systemd-boot EFI boot loader.
+ # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -63,7 +63,7 @@ in
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
-
+    
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
@@ -87,13 +87,14 @@ in
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.fish;
     packages = with pkgs; [
+      clang unstable.zig clojure
       git
       helix
       stunnel
+      feh
+      spectacle peek
       firefox
-      clojure
       unstable.discord
-      unstable.zig
     ];  
   };
 
@@ -101,12 +102,9 @@ in
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     wget
-    xclip
-    dmenu
-    xcompmgr
-    kitty
     direnv
     cheat
+    xclip dmenu xcompmgr kitty
   ];
 
   # Define package overlays
