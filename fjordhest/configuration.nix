@@ -4,13 +4,15 @@
 
 { config, pkgs, ... }:
 
-let unstableTarball = fetchTarball https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz;
+let
+  unstableTarball = fetchTarball https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz;
 in
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];  
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    
+  ];  
     
  # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -87,18 +89,15 @@ in
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.fish;
     packages = with pkgs; [
-      clang unstable.zig clojure
       git
+      unstable.zig clojure
       helix
       stunnel
-      feh
-      spectacle peek
       firefox
-      unstable.discord
-      screenkey
-    ];  
+      unstable.discord    
+    ];
   };
-
+      
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -108,7 +107,8 @@ in
     xclip
     dmenu
     xcompmgr
-    kitty surf
+    kitty surf feh
+    spectacle peek
   ];
 
   # Define package overlays
@@ -116,7 +116,7 @@ in
     (self: super: {
       dwm = super.dwm.overrideAttrs (oldAttrs: rec {
         configFile = writeText "config.def.h" (builtins.readFile
-          "${fetchFromGitHub { owner="hazeycode"; repo="my-config-files"; rev="b5c737bb435605941bcef98c92efa2ba5db7953c"; sha256="00ah003zbsz3dcb6fxhin1yw32yq094asjhv7zk7qbqpvqlwghlw"; }}/dwm/config.h"
+          "${fetchFromGitHub { owner="hazeycode"; repo="my-config-files"; rev="bf6a07183b4fc552f24c6a76c06e7e1bc236e707"; sha256="03yrlvfrxa37wd8pd5phkas05riwzpzd0r1p3kbva57knysk45nh"; }}/dwm/config.h"
         );
         postPatch = "${oldAttrs.postPatch}\n cp ${configFile} config.def.h";
       });
@@ -130,9 +130,12 @@ in
     enable = true;
     enableSSHSupport = true;
   };
+
+    
   programs.fish.enable = true;
+            
   programs.steam.enable = true;
-  
+      
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
