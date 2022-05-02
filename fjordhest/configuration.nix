@@ -96,7 +96,7 @@ in
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.fish;
     packages = with pkgs; [
-      git
+      git git-lfs
       unstable.zig clojure
       helix
       stunnel
