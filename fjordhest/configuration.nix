@@ -21,12 +21,18 @@ in
     '';
   };
     
- # Use the systemd-boot EFI boot loader.
+  # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Choose a kernel version
   boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  # PulseAudio: Turn off timer-based scheduling    
+  hardware.pulseaudio.configFile = pkgs.runCommand "default.pa" {} ''
+  sed 's/module-udev-detect$/module-udev-detect tsched=0/' \
+    ${pkgs.pulseaudio}/etc/pulse/default.pa > $out
+  '';
 
   # Configure graphics
   hardware.enableRedistributableFirmware = true;
@@ -93,13 +99,12 @@ in
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.chris = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "audio" ];
     shell = pkgs.fish;
     packages = with pkgs; [
       git git-lfs
-      unstable.zig clojure
+      clojure
       helix
-      stunnel
       firefox
       unstable.discord    
     ];
