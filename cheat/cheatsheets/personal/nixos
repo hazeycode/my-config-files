@@ -1,6 +1,3 @@
-# To search for nixpkgs
-nix search <package_name>
-
 # To install a package in the current environment:
 nix-env -i <package_name>
 

@@ -1,0 +1,6 @@
+# To search for nixpkgs
+nix search <package_name>
+
+# To update a flakes input (e.g. 'nixpkgs')
+nix flake lock --update-input <name>
+nix build
