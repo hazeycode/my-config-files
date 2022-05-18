@@ -28,12 +28,6 @@ in
   # Choose a kernel version
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  # PulseAudio: Turn off timer-based scheduling    
-  hardware.pulseaudio.configFile = pkgs.runCommand "default.pa" {} ''
-  sed 's/module-udev-detect$/module-udev-detect tsched=0/' \
-    ${pkgs.pulseaudio}/etc/pulse/default.pa > $out
-  '';
-
   # Configure graphics
   hardware.enableRedistributableFirmware = true;
   hardware.opengl = {
@@ -102,11 +96,11 @@ in
     extraGroups = [ "wheel" "audio" ];
     shell = pkgs.fish;
     packages = with pkgs; [
-      git git-lfs
-      clojure
-      helix
-      firefox
-      unstable.discord    
+      helix nnn cheat feh
+      git git-lfs gdbi zls
+      spectacle peek
+      libreoffice      
+      unstable.discord
     ];
   };
       
@@ -115,12 +109,10 @@ in
   environment.systemPackages = with pkgs; [
     wget
     direnv
-    cheat
     xclip
     dmenu
     xcompmgr
-    kitty surf feh
-    spectacle peek
+    kitty
   ];
 
   # Define package overlays
