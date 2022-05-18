@@ -1,0 +1,3 @@
+export NNN_FCOLORS='00008F000000000000000000'
+
+alias nn "nnn -doH"
