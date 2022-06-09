@@ -97,9 +97,12 @@ in
     shell = pkgs.fish;
     packages = with pkgs; [
       helix nnn cheat feh
-      git git-lfs gdbi zls
+      git git-lfs gdb zls
+      perf-tools renderdoc
       spectacle peek
-      libreoffice      
+      libreoffice
+      firefox
+      blender
       unstable.discord
     ];
   };
