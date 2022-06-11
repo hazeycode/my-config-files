@@ -96,13 +96,14 @@ in
     extraGroups = [ "wheel" "audio" ];
     shell = pkgs.fish;
     packages = with pkgs; [
-      helix nnn cheat feh
-      git git-lfs gdb zls
-      perf-tools renderdoc
+      helix nnn cheat feh zls
+      git git-lfs
+      perf-tools gdb rr renderdoc
       spectacle peek
       libreoffice
       firefox
       blender
+      obs-studio
       unstable.discord
     ];
   };
