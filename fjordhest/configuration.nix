@@ -76,7 +76,13 @@ in
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
-
+  
+  # This may be needed for some sound cards. See https://nixos.wiki/wiki/PulseAudio 
+  # hardware.pulseaudio.configFile = pkgs.runCommand "default.pa" {} ''
+  #   sed 's/module-udev-detect$/module-udev-detect tsched=0/' \
+  #     ${pkgs.pulseaudio}/etc/pulse/default.pa > $out
+  # '';
+  
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
@@ -98,11 +104,12 @@ in
     packages = with pkgs; [
       helix nnn cheat feh zls
       git git-lfs
-      perf-tools gdb rr renderdoc
+      perf-tools gdb rr
+      renderdoc tracy
       spectacle peek
       libreoffice
       firefox
-      blender
+      rx blender
       obs-studio
       unstable.discord
     ];
