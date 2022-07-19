@@ -39,7 +39,7 @@ in
   
   networking.hostName = "fjordhest"; # Define your hostname.
   networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
+  
   # Set your time zone.
   time.timeZone = "Europe/London";
 
@@ -64,6 +64,7 @@ in
   # Configure xserver, window manager, etc.
   services.xserver.enable = true;
   services.xserver.autorun = true;
+  services.xserver.desktopManager.wallpaper.mode = "center";
   services.xserver.windowManager.dwm.enable = true;
 
   # Configure keymap in X11
@@ -95,7 +96,7 @@ in
       };
     };
   };
-        
+      
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.chris = {
     isNormalUser = true;
@@ -105,7 +106,7 @@ in
       helix nnn cheat feh zls
       git git-lfs
       perf-tools gdb rr
-      renderdoc tracy
+      renderdoc unstable.tracy
       spectacle peek
       libreoffice
       firefox
@@ -150,6 +151,12 @@ in
   programs.fish.enable = true;
             
   programs.steam.enable = true;
+    
+  # Setup VirtualBox
+  # virtualisation.virtualbox.host.enable = true;
+  # virtualisation.virtualbox.host.enableExtensionPack = true;
+  # users.extraGroups.vboxusers.members = [ "chris" ];
+  
       
   # List services that you want to enable:
 
