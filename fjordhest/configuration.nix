@@ -11,7 +11,7 @@ in
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    
+    ./cachix.nix 
   ];
       
   nix = {
@@ -33,6 +33,7 @@ in
   hardware.opengl = {
     enable = true;
     driSupport = true;
+    extraPackages = [ pkgs.rocm-opencl-icd ];
   };
   boot.initrd.kernelModules = [ "amdgpu" ];
   services.xserver.videoDrivers = [ "amdgpu" ];
@@ -112,6 +113,7 @@ in
       firefox
       rx blender
       obs-studio
+      musikcube
       unstable.discord
     ];
   };
@@ -137,6 +139,7 @@ in
         postPatch = "${oldAttrs.postPatch}\n cp ${configFile} config.def.h";
       });
     })
+    (import /home/chris/nixos-rocm)
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -151,6 +154,8 @@ in
   programs.fish.enable = true;
             
   programs.steam.enable = true;
+    
+  virtualisation.docker.enable = true;
     
   # Setup VirtualBox
   # virtualisation.virtualbox.host.enable = true;
