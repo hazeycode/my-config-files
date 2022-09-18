@@ -18,3 +18,10 @@ nix-store --gc --print-dead
 
 # To delete all old generations of all profiles:
 nix-collect-garbage -d
+
+# To upgrade installed packages
+sudo nixos-rebuild switch --upgrade
+
+# To upgrade nixos
+sudo nix-channel --add https://nixos.org/channels/nixos-<version_number> nixos
+nixos-rebuild switch --upgrade
